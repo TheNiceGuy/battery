@@ -23,3 +23,7 @@ With xsetroot, I can display the output of this program  to the top right corner
 		xsetroot -name "$(battery)"
 		sleep 1
 	done &
+	
+	exec dwm
+	
+![Alt text](/img/screenshot01.png "screenshot01.png")
