@@ -10,14 +10,13 @@ int main()
 	battery bat;
 	get_info(&bat);
 
-	printf("| ");
 	if(bat.status == CHARGING)
 		printf("  up, ");
 	else if(bat.status == DISCHARGING)
 		printf("down, ");
 	else
 		printf("full, ");
-	printf("%d%% |\n", bat.percent);
+	printf("%d%%\n", bat.percent);
 
 	return 0;
 }

@@ -32,7 +32,7 @@ With xsetroot, I can display the output of this program  to the top right corner
 	#!/bin/sh
 
 	while true; do
-		xsetroot -name "$(battery)"
+		xsetroot -name "| $(battery) |"
 		sleep 1
 	done &
 	
