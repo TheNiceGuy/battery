@@ -30,7 +30,7 @@ int read_file(char *filename, char content[], int size)
 	file = fopen(filename, "r");
 	if(file == NULL)
 	{
-		printf("ERROR: Could not open file %s", filename);
+		printf("ERROR: Could not open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
