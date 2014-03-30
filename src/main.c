@@ -1,8 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "global.h"
+
+void exit_failure()
+{
+	asm("mov	$1, %eax \n"
+		"mov	$1, %ebx \n"
+		"int	$0x80");
+}
 
 int read_file(char *filename, char content[], int size)
 {
@@ -14,15 +19,15 @@ int read_file(char *filename, char content[], int size)
 	if(file == NULL)
 	{
 		printf("ERROR: Could not open file %s\n", filename);
-		exit(EXIT_FAILURE);
+		exit_failure();
 	}
 
 	for(i = 0; i<size; i++)
 	{
 		content[i] = fgetc(file);
-		if(content[i] == EOF)
+		if(content[i] == '\n')
 		{
-			strcpy(&content[i], "\0");
+			content[i] = '\0';
 			i = size;
 		}
 	}
@@ -30,6 +35,38 @@ int read_file(char *filename, char content[], int size)
 	return 0;
 }
 
+int string_to_int(char *string)
+{
+	int  i, n;
+
+	n = 0;
+
+	for(i = 0; string[i] != '\0'; i++)
+	{
+		n = (n*10)+(string[i]-'0');
+	}
+
+	return n;
+}
+
+int string_compare(char *string1, char *string2)
+{
+	int i;
+
+	i = 0;
+	while(i >= 0)
+	{
+		if(string1[i] != string2[i])
+			i = -1;
+		else
+			if(string1[i] != '\0')
+				i++;
+			else
+				i = -2;
+	}
+
+	return i;
+}
 
 int print_info()
 {
@@ -39,15 +76,15 @@ int print_info()
 	int percent;
 
 	read_file("/sys/class/power_supply/"ADAPTER"/charge_now" , content, READ_SIZE);
-	current = atoi(content);
+	current = string_to_int(content);
 
 	read_file("/sys/class/power_supply/"ADAPTER"/charge_full", content, READ_SIZE);
-	maximum = atoi(content);
+	maximum = string_to_int(content);
 
 	read_file("/sys/class/power_supply/"ADAPTER"/status", content, READ_SIZE);
-	if(strcmp(content, "Charging\n") == 0)
+	if(string_compare(content, "Charging\0") == -2)
 		printf(P_CHAR P_SEPA);
-	else if(strcmp(content, "Discharging\n") == 0)
+	else if(string_compare(content, "Discharging\0") == -2)
 		printf(P_DISC P_SEPA);
 	else
 		printf(P_FULL P_SEPA);
@@ -64,5 +101,4 @@ int main()
 
 	return 0;
 }
-
 
