@@ -55,12 +55,12 @@ int string_compare(char *string1, char *string2)
     while(i >= 0)
     {
         if(string1[i] != string2[i])
-            i = -1;
+            i = B_FALSE;
         else
             if(string1[i] != '\0')
                 i++;
             else
-                i = -2;
+                i = B_TRUE;
     }
 
     return i;
@@ -80,9 +80,9 @@ int print_info()
     maximum = string_to_int(content);
 
     read_file("/sys/class/power_supply/"ADAPTER"/status", content, READ_SIZE);
-    if(string_compare(content, "Charging\0") == -2)
+    if(string_compare(content, "Charging\0") == B_TRUE)
         printf(P_CHAR P_SEPA);
-    else if(string_compare(content, "Discharging\0") == -2)
+    else if(string_compare(content, "Discharging\0") == B_TRUE)
         printf(P_DISC P_SEPA);
     else
         printf(P_FULL P_SEPA);

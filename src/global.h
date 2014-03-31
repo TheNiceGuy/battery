@@ -9,3 +9,6 @@
 #define P_DISC "down"
 #define P_FULL "full"
 #define P_SEPA ", "
+
+#define B_TRUE  -1
+#define B_FALSE -2
