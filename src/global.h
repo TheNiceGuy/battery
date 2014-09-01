@@ -1,4 +1,6 @@
-#define ADAPTER   "BAT1"
+#define ADAPTER   "BAT0"
+#define CHECK1    "charge"
+#define CHECK2    "energy"
 #define READ_SIZE 16
 
 #define CHARGING     1
