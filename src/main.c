@@ -2,12 +2,6 @@
 
 #include "global.h"
 
-void exit_failure() {
-	asm("mov $1, %eax \n"
-	    "mov $1, %ebx \n"
-	    "int $0x80");
-}
-
 int read_file(char *filename, char content[], int size) {
 	int i;
 
