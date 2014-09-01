@@ -9,7 +9,9 @@ int read_file(char *filename, char content[], int size) {
 
 	file = fopen(filename, "r");
 	if(file == NULL) {
+		#if DEBUG
 		printf("ERROR: Could not open file %s\n", filename);
+		#endif
 		return 1;
 	}
 

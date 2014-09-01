@@ -14,3 +14,5 @@
 
 #define B_TRUE  -1
 #define B_FALSE -2
+
+#define DEBUG 1
