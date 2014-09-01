@@ -23,6 +23,8 @@ int read_file(char *filename, char content[], int size) {
 		}
 	}
 
+	fclose(file);
+
 	return 0;
 }
 
